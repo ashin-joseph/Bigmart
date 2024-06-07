@@ -88,18 +88,32 @@ def cart_pg(request):
     cdata = addcategoryDb.objects.all()
 
     total_price=0
+    shipping_fee=0
+    total_shipping_Overall=0
     for i in cartdata:
         total_price=total_price+i.cart_price
+        if total_price < 100:
+            shipping_fee = 100
+        else:
+            shipping_fee = 0
+        total_shipping_Overall=total_price+shipping_fee
 
-    if total_price < 100:
-        shipping_fee = 100
-    else:
-        shipping_fee = 0
-
-
-    total_sp=total_price+shipping_fee
-
-    return render(request,"cart.html",{'cartdata':cartdata,'catdata':cdata, 'total_price':total_price,'shipping_fee':shipping_fee,'total_sp':total_sp})
+    return render(request,"cart.html",{'cartdata':cartdata,'catdata':cdata, 'total_price':total_price,'shipping_fee':shipping_fee,'total_shipping_Overall':total_shipping_Overall})
 def delete_cartitem(request, Dcid):
     cartDb.objects.get(id=Dcid).delete()
     return redirect(cart_pg)
+def checkout_Pg(request):
+    cdata = addcategoryDb.objects.all()
+    # cartdataUsername will display the product based on the userlogin since we have used the filter session method
+    cartdataUsername=cartDb.objects.filter(cart_username=request.session['su_username'])
+    subTotal=0
+    shippingPrice=0
+    overAllTotal=0
+    for i in cartdataUsername:
+        subTotal=subTotal+i.cart_price
+        if subTotal<100:
+            shippingPrice=100
+        else:
+            shippingPrice=0
+        overAllTotal=subTotal+shippingPrice
+    return render(request,"checkout.html",{'catdata':cdata,'cartdataUsername':cartdataUsername,'subTotal':subTotal,'shippingPrice':shippingPrice,'overAllTotal':overAllTotal})

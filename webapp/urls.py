@@ -1,6 +1,7 @@
 from django.urls import path
 from webapp import views
 
+# name in the http title, views.function name, name given in the html page as url.
 urlpatterns = [
     path('', views.home_pg, name="home_pg"),
     path('about', views.about_pg, name="about_pg"),
@@ -16,4 +17,5 @@ urlpatterns = [
     path('save_cart/', views.save_cart, name="save_cart"),
     path('cart_pg/', views.cart_pg, name="cart_pg"),
     path('delete_cartitem/<int:Dcid>/', views.delete_cartitem, name="delete_cartitem"),
+    path('checkout_Pg/', views.checkout_Pg, name="checkout_Pg"),
 ]
