@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+{% extends 'index.html' %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>add</title>
+</head>
+<body>
+<div>
+    <div class="col-12 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Add category</h4>
+                  <form class="forms-sample"method="post" action="{% url 'P_update' UPid=EPdata.id %}" enctype="multipart/form-data">
+                      {% csrf_token %}
+                      <div class="form-group">
+                      <label for="exampleSelectGender">Product Category</label>
+                        <select name="b1" class="form-control" id="exampleSelectGender">
+                          <option>{{ EPdata.p_category }}</option>
+                            {% for i in acEdata %}
+                          <option>{{i.ac_name}}</option>
+                            {% endfor %}
+                        </select>
+                      </div>
+                    <div class="form-group">
+                      <label for="exampleInputName1"> Product Name</label>
+                      <input value="{{ EPdata.p_name }}" name="b2" type="text" class="form-control" id="exampleInputName1" placeholder=" Product Name">
+                    </div>
+                      <div class="form-group">
+                      <label for="exampleInputName1"> Product Price</label>
+                      <input value="{{ EPdata.p_price }}" name="b3" type="text" class="form-control" id="exampleInputName1" placeholder=" Product Price">
+                    </div>
+                      <div class="form-group">
+                      <label for="exampleTextarea1">Description</label>
+                      <textarea name="b4" class="form-control" id="exampleTextarea1" rows="4" placeholder="description">{{ EPdata.p_description }}</textarea>
+                    </div>
+                    <div class="form-group">
+                      <label>Product Image</label>
+                        <img src="{{ EPdata.p_image.url }}">
+                      <input type="file" name="b5" >
+<!--                      <div class="input-group col-xs-12">-->
+<!--                        <input type="text" class="form-control file-upload-info" disabled="" placeholder="Upload Image">-->
+<!--                        <span class="input-group-append">-->
+<!--                          <button class="file-upload-browse btn btn-primary" type="button">Upload</button>-->
+<!--                        </span>-->
+<!--                      </div>-->
+                    </div>
+                    <button type="submit" class="btn btn-primary mr-2">Update</button>
+                    <button class="btn btn-light">Cancel</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+</div>
+</body>
+</html>
+{% endblock %}
