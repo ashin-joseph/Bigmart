@@ -166,11 +166,12 @@
 						        <div class="billing-address-form">
 						        	<form action="#">
 										{% csrf_token %}
-						        		<p><input type="text" placeholder="Name" value="{{request.session.su_username}}" readonly></p>
-						        		<p><input type="email" placeholder="Email" ></p>
-						        		<p><input type="text" placeholder="Address"></p>
-						        		<p><input type="tel" placeholder="Phone"></p>
-						        		<p><textarea name="bill" id="bill" cols="30" rows="10" placeholder="Say Something"></textarea></p>
+						        		<p><input name="cartproname" type="text" placeholder="Name" value="{{request.session.su_username}}" readonly></p>
+						        		<p><input name="cartproemail" type="email" placeholder="Email" required></p>
+						        		<p><input name="cartproaddress" type="text" placeholder="Address" required></p>
+						        		<p><input name="cartpronumber" type="tel" placeholder="Phone" required></p>
+						        		<p><textarea name="cartpromessage" id="bill" cols="30" rows="10" placeholder="Say Something"></textarea></p>
+										<a href="{% url 'payment_pg' %}" class="boxed-btn"><p><input type="submit" value="Place order"></p></a>
 						        	</form>
 						        </div>
 						      </div>
@@ -230,26 +231,26 @@
 								{% for i in cartdataUsername %}
 								<tr>
 									<td>{{i.cart_productname}}</td>
-									<td>{{i.cart_price}}</td>
+									<td>Rs.{{i.cart_price}}</td>
 								</tr>
 							{% endfor %}
 							</tbody>
 							<tbody class="checkout-details">
 								<tr>
 									<td>Subtotal</td>
-									<td>{{subTotal}}</td>
+									<td>Rs.{{subTotal}}</td>
 								</tr>
 								<tr>
 									<td>Shipping</td>
-									<td>{{shippingPrice}}</td>
+									<td>Rs.{{shippingPrice}}</td>
 								</tr>
 								<tr>
 									<td>Total</td>
-									<td>{{overAllTotal}}</td>
+									<td>Rs.{{overAllTotal}}</td>
 								</tr>
 							</tbody>
 						</table>
-						<a href="#" class="boxed-btn">Place Order</a>
+<!--						<a href="{% url 'payment_pg' %}" class="boxed-btn">Place Order</a>-->
 					</div>
 				</div>
 			</div>
@@ -313,13 +314,13 @@
 							<li><a href="{% url 'about_pg' %}">About</a></li>
 							<li><a href="{% url 'contact_pg' %}">Contact</a></li>
 							<li><a href="{% url 'shope_pg' %}">Shop</a></li>
-							<li><a href="#">Category</a>
-									<ul class="sub-menu">
-										{% for i in catdata %}
-										<li><a href="{% url 'filtered_products_pg' P_catname_id=i.ac_name %}">{{i.ac_name}}</a></li>
-										{% endfor %}
-									</ul>
-								</li>
+<!--							<li><a href="#">Category</a>-->
+<!--									<ul class="sub-menu">-->
+<!--										{% for i in catdata %}-->
+<!--										<li><a href="{% url 'filtered_products_pg' P_catname_id=i.ac_name %}">{{i.ac_name}}</a></li>-->
+<!--										{% endfor %}-->
+<!--									</ul>-->
+<!--								</li>-->
 						</ul>
 					</div>
 				</div>

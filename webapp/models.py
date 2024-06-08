@@ -17,3 +17,9 @@ class cartDb(models.Model):
     cart_productname=models.CharField(max_length=50,null=True,blank=True)
     cart_quantity=models.IntegerField(null=True,blank=True)
     cart_price=models.IntegerField(null=True,blank=True)
+class checkoutDb(models.Model):
+    checkout_username=models.CharField(max_length=50, null=True,blank=True)
+    checkout_email=models.EmailField(max_length=50, null=True,blank=True)
+    checkout_address=models.TextField(null=True,blank=True)
+    checkout_Phone=models.IntegerField(null=True,blank=True)
+    checkout_message=models.TextField(null=True,blank=True)

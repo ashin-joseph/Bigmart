@@ -60,7 +60,7 @@
 						<!-- menu start -->
 						<nav class="main-menu">
 							<ul>
-								<li class="current-list-item"><a href="#">Home</a>
+								<li><a href="{% url 'home_pg' %}">Home</a>
 <!--									<ul class="sub-menu">-->
 <!--										<li><a href="{% url 'home_pg' %}">Static Home</a></li>-->
 <!--										<li><a href="index_2.html">Slider Home</a></li>-->
@@ -68,7 +68,7 @@
 								</li>
 								<li><a href="{% url 'about_pg' %}">About</a></li>
 								<li><a href="{% url 'contact_pg' %}">Contact</a></li>
-								<li><a href="{% url 'shope_pg' %}">Shop</a>
+								<li class="current-list-item"><a href="#">Shop</a>
 <!--									<ul class="sub-menu">-->
 <!--										<li><a href="{% url 'shope_pg' %}">Shop</a></li>-->
 <!--										<li><a href="checkout.html">Check Out</a></li>-->
@@ -152,11 +152,14 @@
 			<div class="row">
                 <div class="col-md-12">
                     <div class="product-filters">
+
                         <ul>
                             <li class="active" data-filter="*">All</li>
-                            <li data-filter=".strawberry">Strawberry</li>
-                            <li data-filter=".berry">Berry</li>
-                            <li data-filter=".lemon">Lemon</li>
+							{% for i in catdata %}
+                            <li data-filter=".strawberry">{{i.ac_name}}</li>
+							{% endfor %}
+<!--                            <li data-filter=".berry">Berry</li>-->
+<!--                            <li data-filter=".lemon">Lemon</li>-->
                         </ul>
                     </div>
                 </div>
@@ -164,7 +167,7 @@
 
 			<div class="row product-lists">
 				{% for i in prodata %}
-				<div class="col-lg-4 col-md-6 text-center strawberry">
+				<div class="col-lg-4 col-md-6 text-center {{i.p_category}}">
 					<div class="single-product-item">
 						<div class="product-image">
 							<a href="single-product.html"><img src="{{i.p_image.url}}" alt="" width="100px" height="150px"></a>
