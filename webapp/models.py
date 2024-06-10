@@ -20,6 +20,8 @@ class cartDb(models.Model):
 class checkoutDb(models.Model):
     checkout_username=models.CharField(max_length=50, null=True,blank=True)
     checkout_email=models.EmailField(max_length=50, null=True,blank=True)
+    checkout_place=models.CharField(max_length=50, null=True,blank=True)
     checkout_address=models.TextField(null=True,blank=True)
     checkout_Phone=models.IntegerField(null=True,blank=True)
     checkout_message=models.TextField(null=True,blank=True)
+    checkout_overall_total=models.IntegerField(null=True,blank=True)

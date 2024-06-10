@@ -164,14 +164,16 @@
 						    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
 						      <div class="card-body">
 						        <div class="billing-address-form">
-						        	<form action="#">
+						        	<form method="post" action="{% url 'save_checkout' %}">
 										{% csrf_token %}
 						        		<p><input name="cartproname" type="text" placeholder="Name" value="{{request.session.su_username}}" readonly></p>
 						        		<p><input name="cartproemail" type="email" placeholder="Email" required></p>
+						        		<p><input name="cartproplace" type="text" placeholder="place" required></p>
 						        		<p><input name="cartproaddress" type="text" placeholder="Address" required></p>
 						        		<p><input name="cartpronumber" type="tel" placeholder="Phone" required></p>
+						        		<p><input name="cartprototal" type="hidden" placeholder="totalprice" value="{{overAllTotal}}"></p>
 						        		<p><textarea name="cartpromessage" id="bill" cols="30" rows="10" placeholder="Say Something"></textarea></p>
-										<a href="{% url 'payment_pg' %}" class="boxed-btn"><p><input type="submit" value="Place order"></p></a>
+										<a href="{% url 'payment_pg' %}" class="boxed-btn"><p><input type="submit" value="Submit"></p></a>
 						        	</form>
 						        </div>
 						      </div>

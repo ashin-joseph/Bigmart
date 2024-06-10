@@ -1,3 +1,4 @@
+import razorpay
 from django.shortcuts import render, redirect
 from backend.models import productDb, addcategoryDb
 from webapp.models import contactDb, Reg_signUp, cartDb,checkoutDb
@@ -150,14 +151,33 @@ def checkout_Pg(request):
                   {'catdata': cdata, 'cartdataUsername': cartdataUsername, 'subTotal': subTotal,
                    'shippingPrice': shippingPrice, 'overAllTotal': overAllTotal})
 def payment_pg(request):
-    return render(request,"payment.html")
-def save_address(request):
+    customer=checkoutDb.objects.order_by('-id').first()
+
+    # get the amount of the current customer
+    pay =customer.checkout_overall_total
+
+    #
+    amount = int(pay*100)
+
+    #
+    pay_str = str(amount)
+
+    for i in pay_str:
+        print(i)
+    if request.method =="POST":
+        order_currency ='INR'
+        client = razorpay.Client
+
+    return render(request,"payment.html",{'customer':customer})
+def save_checkout(request):
     if request.method=="POST":
         co_username= request.POST.get('cartproname')
         co_email= request.POST.get('cartproemail')
+        co_place= request.POST.get('cartproplace')
         co_address= request.POST.get('cartproaddress')
         co_phone= request.POST.get('cartpronumber')
         co_message= request.POST.get('cartpromessage')
-        obj=checkoutDb(checkout_username=co_username,checkout_email=co_email,checkout_address=co_address,checkout_Phone=co_phone,checkout_message=co_message)
+        co_totalprice= request.POST.get('cartprototal')
+        obj=checkoutDb(checkout_username=co_username,checkout_email=co_email,checkout_place=co_place,checkout_address=co_address,checkout_Phone=co_phone,checkout_message=co_message,checkout_overall_total=co_totalprice)
         obj.save()
         return redirect(payment_pg)
