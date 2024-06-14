@@ -147,6 +147,7 @@ def checkout_Pg(request):
         else:
             shippingPrice = 0
         overAllTotal = subTotal + shippingPrice
+        messages.success(request,"Redirected to Payment page")
     return render(request, "checkout.html",
                   {'catdata': cdata, 'cartdataUsername': cartdataUsername, 'subTotal': subTotal,
                    'shippingPrice': shippingPrice, 'overAllTotal': overAllTotal})
@@ -166,9 +167,10 @@ def payment_pg(request):
         print(i)
     if request.method =="POST":
         order_currency ='INR'
-        client = razorpay.Client
+        client = razorpay.Client(auth=('rzp_test_7apnMZ22irzosy','mlTDHZRjKcZpIfDGoQVKW6WQ'))
+        payment=client.order.create({'amount':amount, 'order_currency':order_currency,'payment_capture':'1'})
 
-    return render(request,"payment.html",{'customer':customer})
+    return render(request,"payment.html",{'customer':customer,'pay_str':pay_str})
 def save_checkout(request):
     if request.method=="POST":
         co_username= request.POST.get('cartproname')

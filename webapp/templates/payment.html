@@ -83,8 +83,43 @@
             background-color: blue;
         }
     </style>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+{% if messages %}
+{% for i in messages %}
+{% if i.tags == 'warning' %}
+            <script>
+              swal('{{i}}', '', 'warning');
+            </script>
+        {% elif i.tags == 'error' %}
+            <script>
+              swal('{{i}}', '', 'error');
+            </script>
+        {% elif i.tags == 'info' %}
+            <script>
+              swal('{{i}}', '', 'info');
+            </script>
+        {% else %}
+            <script>
+              swal('{{i}}', '', 'success');
+            </script>
+        {% endif %}
+    {% endfor %}
+{% endif %}
 
-<script src="https://checkout.razorpay.com/v1/checkout.js"> </script>
+<script src="https://checkout.razorpay.com/v1/checkout.js"
+ data-key="rzp_test_7apnMZ22irzosy"
+ data-amount="{{pay_str}}"
+ data-order_currency="INR"
+ data-order_id="{{payment.order_id}}"
+ data-buttontext=""
+ data-name="BigMart"
+ data-description="your description"
+ data-image=""
+ data-prefill.name="Ashin"
+ data-prefill.email="ashinjoseph01@gmail.com"
+ data-theme.color=""
+>
+</script>
 
 
 </body>
