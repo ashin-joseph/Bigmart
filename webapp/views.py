@@ -107,25 +107,33 @@ def save_cart(request):
         messages.success(request, "Added to Cart")
         return redirect(home_pg)
 
-
 def cart_pg(request):
-    cartdata = cartDb.objects.filter(cart_username=request.session['su_username'])
-    cdata = addcategoryDb.objects.all()
+    try:
+        cartdata = cartDb.objects.filter(cart_username=request.session['su_username'])
+        cdata = addcategoryDb.objects.all()
 
-    total_price = 0
-    shipping_fee = 0
-    total_shipping_Overall = 0
-    for i in cartdata:
-        total_price = total_price + i.cart_price
-        if total_price < 100:
-            shipping_fee = 100
-        else:
-            shipping_fee = 0
-        total_shipping_Overall = total_price + shipping_fee
+        total_price = 0
+        shipping_fee = 0
+        total_shipping_Overall = 0
+        for i in cartdata:
+            total_price = total_price + i.cart_price
+            if total_price < 100:
+                shipping_fee = 100
+            else:
+                shipping_fee = 0
+            total_shipping_Overall = total_price + shipping_fee
 
-    return render(request, "cart.html",
+        return render(request, "cart.html",
                   {'cartdata': cartdata, 'catdata': cdata, 'total_price': total_price, 'shipping_fee': shipping_fee,
                    'total_shipping_Overall': total_shipping_Overall})
+    except KeyError:
+        # Handle the case when 'su_username' is not in session
+        return render(request, "cart.html", {
+            'cartdata': [],
+            'total_price': 0,
+            'shipping_fee': 0,
+            'total_shipping_Overall': 0
+        })
 
 
 def delete_cartitem(request, Dcid):
